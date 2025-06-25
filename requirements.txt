@@ -1,0 +1,4 @@
+flask
+requests
+user-agents
+guicorn

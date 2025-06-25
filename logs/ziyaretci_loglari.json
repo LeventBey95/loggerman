@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2025-06-23T21:33:02.085354",
+    "ip": "127.0.0.1",
+    "city": "Bilinmiyor",
+    "region": "Bilinmiyor",
+    "country": "Bilinmiyor",
+    "location": "Bilinmiyor",
+    "device": "Other",
+    "os": "Windows 10",
+    "browser": "Chrome 137.0.0",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+  },
+  {
+    "timestamp": "2025-06-23T21:33:45.844699",
+    "ip": "127.0.0.1",
+    "city": "Bilinmiyor",
+    "region": "Bilinmiyor",
+    "country": "Bilinmiyor",
+    "location": "Bilinmiyor",
+    "device": "Other",
+    "os": "Windows 10",
+    "browser": "Chrome 137.0.0",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+  },
+  {
+    "timestamp": "2025-06-23T21:35:41.212379",
+    "ip": "127.0.0.1",
+    "city": "Bilinmiyor",
+    "region": "Bilinmiyor",
+    "country": "Bilinmiyor",
+    "location": "Bilinmiyor",
+    "device": "Other",
+    "os": "Windows 10",
+    "browser": "Chrome 137.0.0",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+  }
+]

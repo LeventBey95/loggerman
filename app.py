@@ -3,11 +3,32 @@ from datetime import datetime
 import requests
 import user_agents
 import os
-import json
+import sqlite3
 
 app = Flask(__name__)
 
-JSON_LOG_PATH = 'logs.json'  # logs.json dosyasına kayıt yapılacak
+DB_PATH = 'visitors.db'  # SQLite veritabanı dosyası
+
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS visitors (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp TEXT,
+            ip TEXT,
+            city TEXT,
+            region TEXT,
+            country TEXT,
+            location TEXT,
+            device TEXT,
+            os TEXT,
+            browser TEXT,
+            user_agent TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 def get_geo_info(ip_address):
     try:
@@ -29,17 +50,27 @@ def get_geo_info(ip_address):
         "location": "Bilinmiyor"
     }
 
-def append_json_log(data):
-    logs = []
-    if os.path.exists(JSON_LOG_PATH):
-        with open(JSON_LOG_PATH, "r", encoding="utf-8") as f:
-            try:
-                logs = json.load(f)
-            except Exception:
-                logs = []
-    logs.append(data)
-    with open(JSON_LOG_PATH, "w", encoding="utf-8") as f:
-        json.dump(logs, f, ensure_ascii=False, indent=2)
+def insert_visitor(data):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('''
+        INSERT INTO visitors (
+            timestamp, ip, city, region, country, location, device, os, browser, user_agent
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        data["timestamp"],
+        data["ip"],
+        data["city"],
+        data["region"],
+        data["country"],
+        data["location"],
+        data["device"],
+        data["os"],
+        data["browser"],
+        data["user_agent"]
+    ))
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def ziyaretci_bilgisi():
@@ -59,8 +90,9 @@ def ziyaretci_bilgisi():
         "browser": f"{parsed_ua.browser.family} {parsed_ua.browser.version_string}",
         "user_agent": user_agent
     }
-    append_json_log(result)
+    insert_visitor(result)
     return render_template("welcome.html")
 
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True, use_reloader=False)
